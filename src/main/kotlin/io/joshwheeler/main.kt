@@ -67,5 +67,27 @@ fun main(args: Array<String>) {
         exitProcess(1)
     }
 
-    println(calculateTotal(toFruitMap(argsList)))
+    val orderDisplayer: InterestedParty = ProcessedOrderDisplayer()
+    val pushNotification: InterestedParty = ProcessedOrderPushNotification()
+
+    val orderProcessor: InterestingSubject = OrderProcessor()
+    orderProcessor.addInterestedParty(orderDisplayer)
+    orderProcessor.addInterestedParty(pushNotification)
+
+    val fruitMap1 = toFruitMap(argsList)
+    val total1 = calculateTotal(fruitMap1)
+    val order1 = Order(1, fruitMap1, total1)
+    orderProcessor.interestingUpdate(order1)
+
+    orderProcessor.removeInterestedParty(pushNotification)
+    val fruitMap2 = toFruitMap(listOf("Apple", "Apple"))
+    val total2 = calculateTotal(fruitMap2)
+    val order2 = Order(2, fruitMap2, total2)
+    orderProcessor.interestingUpdate(order2)
+
+    orderProcessor.removeInterestedParty(orderDisplayer)
+    val fruitMap3 = toFruitMap(listOf("Orange", "Orange"))
+    val total3 = calculateTotal(fruitMap3)
+    val order3 = Order(3, fruitMap3, total3)
+    orderProcessor.interestingUpdate(order3)
 }
