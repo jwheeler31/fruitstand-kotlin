@@ -15,6 +15,11 @@ class OrderProcessor : InterestingSubject {
     val interestedParties = mutableListOf<InterestedParty>()
 
     /**
+     * The inventory.
+     */
+    val inventory: Inventory = Inventory.instance
+
+    /**
      * The interesting order.
      *
      * Note: this would not typically be accessible, and a mock used in tests,
@@ -35,7 +40,31 @@ class OrderProcessor : InterestingSubject {
     }
 
     override fun interestingUpdate(interesting: Any) {
-        this.interestingOrder = interesting as Order
+        val order = interesting as Order
+        var apples = 0
+        var oranges = 0
+        try {
+            if (order.fruitMap[Fruit.APPLE] != null) {
+                apples = inventory.removeApples(order.fruitMap[Fruit.APPLE]!!)
+            }
+        } catch (e: InsufficientInventoryException) {
+            this.interestingOrder = Order(order.id, order.fruitMap, order.total, OrderState.FAILED)
+            this.notifyInterestedParties();
+            return
+        }
+
+        try {
+            if (order.fruitMap[Fruit.ORANGE] != null) {
+                oranges = inventory.removeOranges(order.fruitMap[Fruit.ORANGE]!!)
+            }
+        } catch (e: InsufficientInventoryException) {
+            inventory.addApples(apples)
+            this.interestingOrder = Order(order.id, order.fruitMap, order.total, OrderState.FAILED)
+            this.notifyInterestedParties()
+            return
+        }
+
+        this.interestingOrder = Order(order.id, order.fruitMap, order.total, OrderState.COMPLETED)
         this.notifyInterestedParties()
     }
 }
