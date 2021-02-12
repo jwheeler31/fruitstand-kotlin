@@ -2,6 +2,7 @@ package io.joshwheeler
 
 import assertk.assertThat
 import assertk.assertions.*
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import kotlin.IllegalArgumentException
 import kotlin.test.assertFailsWith
@@ -12,6 +13,19 @@ import kotlin.test.assertFailsWith
  * @author jwheeler
  */
 internal class MainKtTest {
+    companion object {
+        /**
+         * Test initializer
+         */
+        @BeforeAll
+        @JvmStatic
+        internal fun beforeAll() {
+            val inventory: Inventory = Inventory.instance
+            inventory.appleInventory = 5
+            inventory.orangeInventory = 3
+        }
+    }
+
     /**
      * Tests fruit arguments are valid and case insensitive.
      */

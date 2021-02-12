@@ -85,9 +85,13 @@ fun main(args: Array<String>) {
     val order2 = Order(2, fruitMap2, total2)
     orderProcessor.interestingUpdate(order2)
 
-    orderProcessor.removeInterestedParty(orderDisplayer)
-    val fruitMap3 = toFruitMap(listOf("Orange", "Orange"))
+    val fruitMap3 = toFruitMap(listOf("Orange", "Orange", "Orange", "Orange"))
     val total3 = calculateTotal(fruitMap3)
     val order3 = Order(3, fruitMap3, total3)
     orderProcessor.interestingUpdate(order3)
+
+    val fruitMap4 = toFruitMap(listOf("Orange", "Orange"))
+    val total4 = calculateTotal(fruitMap4)
+    val order4 = Order(4, fruitMap4, total4)
+    orderProcessor.interestingUpdate(order4)
 }

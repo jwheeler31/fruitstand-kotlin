@@ -1,6 +1,9 @@
 #### Comments to Reviewer
 * The pub-sub implementation was heavily borrowed from "Head First Design Patterns" by Eric Freeman and Elizabeth Bates, 
   as well as an [example on stackabuse.com](https://stackabuse.com/the-observer-design-pattern-in-java/)
+* The inventory aspect would have been much cleaner using a repository pattern, but I opted for a singleton in the 
+  interest of time.
+* In retrospect, an order builder would have been very useful.
 
 ##Coding Task for Software Engineer Candidates
 The following task will allow you to demonstrate your ability to deliver readable,
